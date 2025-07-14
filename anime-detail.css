@@ -1,0 +1,427 @@
+/* Anime Detail Page Styles */
+
+/* Anime Hero Section */
+.anime-hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.anime-hero-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+.anime-hero-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    135deg,
+    rgba(10, 10, 15, 0.9) 0%,
+    rgba(26, 26, 46, 0.7) 50%,
+    rgba(22, 33, 62, 0.9) 100%
+  );
+}
+
+.anime-hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 800px;
+  animation: fadeInUp 1s ease-out;
+}
+
+.anime-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.anime-breadcrumb a {
+  color: var(--neon-cyan);
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.anime-breadcrumb a:hover {
+  color: var(--text-primary);
+}
+
+.anime-hero-title {
+  font-family: 'Orbitron', monospace;
+  font-size: clamp(3rem, 8vw, 5rem);
+  font-weight: 900;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 1.5rem;
+  line-height: 1.2;
+}
+
+.anime-hero-meta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.anime-hero-synopsis {
+  font-size: 1.2rem;
+  color: var(--text-secondary);
+  line-height: 1.8;
+  margin-bottom: 3rem;
+  max-width: 700px;
+}
+
+.anime-hero-actions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+/* Detail Sections */
+.anime-details-section {
+  padding: 6rem 0;
+  background: var(--primary-bg);
+}
+
+.anime-details-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 3rem;
+}
+
+.detail-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(0, 255, 255, 0.2);
+  border-radius: var(--border-radius);
+  padding: 2rem;
+  margin-bottom: 2rem;
+  backdrop-filter: blur(10px);
+  transition: var(--transition);
+}
+
+.detail-card:hover {
+  border-color: var(--neon-cyan);
+  box-shadow: var(--shadow-neon);
+}
+
+.detail-title {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: 'Orbitron', monospace;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 1.5rem;
+}
+
+.detail-title i {
+  color: var(--neon-cyan);
+  font-size: 1.2rem;
+}
+
+.detail-text {
+  color: var(--text-secondary);
+  line-height: 1.8;
+  font-size: 1.1rem;
+}
+
+/* Story Arcs */
+.story-arcs {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.arc-item {
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+  padding: 1.5rem;
+  background: rgba(0, 255, 255, 0.05);
+  border: 1px solid rgba(0, 255, 255, 0.2);
+  border-radius: var(--border-radius);
+  transition: var(--transition);
+}
+
+.arc-item:hover {
+  background: rgba(0, 255, 255, 0.1);
+  border-color: var(--neon-cyan);
+}
+
+.arc-number {
+  font-family: 'Orbitron', monospace;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--neon-cyan);
+  background: rgba(0, 255, 255, 0.1);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.arc-content h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.arc-content p {
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* Sidebar */
+.anime-sidebar .detail-card {
+  margin-bottom: 1.5rem;
+}
+
+.anime-sidebar .detail-title {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.info-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.info-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.info-label {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.info-value {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.stats-grid .stat-item {
+  text-align: center;
+  padding: 1rem;
+  background: rgba(0, 255, 255, 0.05);
+  border: 1px solid rgba(0, 255, 255, 0.2);
+  border-radius: var(--border-radius);
+}
+
+.stats-grid .stat-number {
+  display: block;
+  font-family: 'Orbitron', monospace;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--neon-cyan);
+  margin-bottom: 0.25rem;
+}
+
+.stats-grid .stat-label {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Characters Section */
+.characters-section {
+  padding: 6rem 0;
+  background: linear-gradient(
+    135deg,
+    rgba(10, 10, 15, 0.9) 0%,
+    rgba(26, 26, 46, 0.8) 50%,
+    rgba(22, 33, 62, 0.9) 100%
+  );
+}
+
+.characters-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+.character-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(0, 255, 255, 0.2);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  transition: var(--transition);
+  backdrop-filter: blur(10px);
+}
+
+.character-card:hover {
+  transform: translateY(-10px);
+  border-color: var(--neon-cyan);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.character-image {
+  position: relative;
+  height: 300px;
+  overflow: hidden;
+}
+
+.character-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: var(--transition);
+}
+
+.character-card:hover .character-image img {
+  transform: scale(1.1);
+}
+
+.character-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.9));
+  padding: 2rem 1.5rem 1.5rem;
+  transform: translateY(100%);
+  transition: var(--transition);
+}
+
+.character-card:hover .character-overlay {
+  transform: translateY(0);
+}
+
+.character-overlay h3 {
+  font-family: 'Orbitron', monospace;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.character-overlay p {
+  color: var(--neon-cyan);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.character-info {
+  padding: 1.5rem;
+}
+
+.character-info h4 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.character-info p {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .anime-details-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  
+  .anime-hero-actions {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .anime-hero {
+    min-height: 80vh;
+    padding: 2rem 0;
+  }
+  
+  .anime-hero-content {
+    text-align: center;
+  }
+  
+  .anime-hero-meta {
+    justify-content: center;
+  }
+  
+  .anime-hero-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .detail-card {
+    padding: 1.5rem;
+  }
+  
+  .arc-item {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .characters-grid {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .anime-details-section,
+  .characters-section {
+    padding: 4rem 0;
+  }
+  
+  .detail-card {
+    padding: 1rem;
+  }
+  
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .characters-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .character-image {
+    height: 250px;
+  }
+}

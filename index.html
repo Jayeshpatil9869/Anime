@@ -3,42 +3,858 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Itachi Uchiha</title>
-    <link rel="shortcut icon" href="./Assets/f" type="image/x-icon">
+    <title>AnimeVerse - Digital Artbook</title>
+    <link rel="shortcut icon" href="./Assets/fabIcon.png" type="image/x-icon" />
     <link rel="stylesheet" href="style.css" />
     <link
       href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
       rel="stylesheet"
     />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+      <div class="loading-content">
+        <div class="loading-logo">
+          <img src="./Assets/logo.png" alt="AnimeVerse" />
+        </div>
+        <div class="loading-text">
+          <span class="loading-letter">A</span>
+          <span class="loading-letter">N</span>
+          <span class="loading-letter">I</span>
+          <span class="loading-letter">M</span>
+          <span class="loading-letter">E</span>
+          <span class="loading-letter">V</span>
+          <span class="loading-letter">E</span>
+          <span class="loading-letter">R</span>
+          <span class="loading-letter">S</span>
+          <span class="loading-letter">E</span>
+        </div>
+        <div class="loading-bar">
+          <div class="loading-progress"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Background Music Toggle -->
+    <div
+      class="music-toggle"
+      id="musicToggle"
+      title="Toggle background music (scroll to adjust volume)"
+    >
+      <i class="ri-volume-mute-line" id="musicIcon"></i>
+      <audio id="backgroundMusic" loop preload="auto" volume="0.3" muted>
+        <!-- Using the existing video file as background music -->
+        <source
+          src="./Assets/THIS IS 4K ANIME (Jujutsu Kaisen).mp4"
+          type="audio/mp4"
+        />
+        <!-- Fallback: You can add an MP3 file here -->
+        <!-- <source src="./Assets/background-music.mp3" type="audio/mpeg"> -->
+        Your browser does not support the audio element.
+      </audio>
+    </div>
+
+    <!-- Scroll Progress Indicator -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <!-- Full-Screen Video Player -->
+    <div class="video-player-overlay" id="videoPlayerOverlay">
+      <div class="video-player-container">
+        <button
+          class="video-close-btn"
+          id="videoCloseBtn"
+          onclick="closeVideoTrial()"
+        >
+          <i class="ri-close-line"></i>
+        </button>
+        <video
+          id="trialVideo"
+          controls
+          autoplay
+          preload="metadata"
+          poster="./Assets/All1111111.jpeg"
+        >
+          <source
+            src="./Assets/THIS IS 4K ANIME (Jujutsu Kaisen).mp4"
+            type="video/mp4"
+          />
+          Your browser does not support the video tag.
+        </video>
+        <div class="video-info">
+          <h3 id="videoTitle">Jujutsu Kaisen - Episode 1 Preview</h3>
+          <p id="videoDescription">
+            Watch the exciting preview of the first episode
+          </p>
+        </div>
+      </div>
+    </div>
+
     <main>
+      <!-- Video Background Layer -->
       <div class="videoLayer">
-        <div class="bllayer"></div>
+        <div class="video-overlay"></div>
         <video
           autoplay
-          loop
           muted
+          loop
+          playsinline
           src="./Assets/THIS IS 4K ANIME (Jujutsu Kaisen).mp4"
+          id="heroVideo"
         ></video>
       </div>
 
-      <div class="page">
-        <nav>
-          <div class="logo"><img src="./Assets/logo.png" alt="" /></div>
-          <div class="rnav">
-            <h3>Home</h3>
-            <h3>About</h3>
-            <h3>Character</h3>
-            <h3>Gallery</h3>
+      <!-- Navigation -->
+      <nav class="navbar" id="navbar">
+        <div class="nav-container">
+          <div class="logo">
+            <img src="./Assets/logo.png" alt="AnimeVerse" />
+            <span class="logo-text">AnimeVerse</span>
+          </div>
+          <div class="nav-menu" id="navMenu">
+            <a href="#home" class="nav-link active" data-section="home">
+              <i class="ri-home-4-line"></i>
+              <span>Home</span>
+            </a>
+            <a href="#anime-index" class="nav-link" data-section="anime-index">
+              <i class="ri-movie-2-line"></i>
+              <span>Anime</span>
+            </a>
+            <a href="#characters" class="nav-link" data-section="characters">
+              <i class="ri-user-3-line"></i>
+              <span>Characters</span>
+            </a>
+            <a href="#gallery" class="nav-link" data-section="gallery">
+              <i class="ri-gallery-line"></i>
+              <span>Gallery</span>
+            </a>
+            <a href="#about" class="nav-link" data-section="about">
+              <i class="ri-information-line"></i>
+              <span>About</span>
+            </a>
+          </div>
+          <div class="nav-toggle" id="navToggle">
+            <span></span>
+            <span></span>
             <span></span>
           </div>
-        </nav>
+        </div>
+      </nav>
 
+      <!-- Hero Section -->
+      <section class="hero-section" id="home">
+        <div class="hero-content">
+          <div class="hero-text">
+            <h1 class="hero-title">
+              <span class="title-line">Welcome to</span>
+              <span class="title-main">AnimeVerse</span>
+              <span class="title-subtitle">Digital Artbook Experience</span>
+            </h1>
+            <p class="hero-description">
+              Immerse yourself in the captivating worlds of anime through
+              interactive storytelling, stunning visuals, and comprehensive
+              character lore.
+            </p>
+            <div class="hero-buttons">
+              <button
+                class="btn btn-primary"
+                onclick="scrollToSection('anime-index')"
+              >
+                <span>Explore Anime</span>
+                <i class="ri-arrow-right-line"></i>
+              </button>
+              <button
+                class="btn btn-secondary"
+                onclick="scrollToSection('featured')"
+              >
+                <span>Featured Series</span>
+                <i class="ri-star-line"></i>
+              </button>
+            </div>
+          </div>
+          <div class="hero-stats">
+            <div class="stat-item">
+              <span class="stat-number" data-count="150">0</span>
+              <span class="stat-label">Anime Series</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number" data-count="500">0</span>
+              <span class="stat-label">Characters</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number" data-count="1000">0</span>
+              <span class="stat-label">Episodes</span>
+            </div>
+          </div>
+        </div>
+        <div class="scroll-indicator">
+          <div class="scroll-mouse">
+            <div class="scroll-wheel"></div>
+          </div>
+          <span>Scroll to explore</span>
+        </div>
+      </section>
 
-        
-      </div>
+      <!-- Featured Anime Section -->
+      <section class="featured-section" id="featured">
+        <div class="container">
+          <div class="section-header">
+            <h2 class="section-title">
+              <span class="title-accent">Featured</span>
+              <span class="title-main">Anime of the Week</span>
+            </h2>
+            <p class="section-subtitle">
+              Discover the most captivating series handpicked for you
+            </p>
+          </div>
+
+          <div class="featured-anime">
+            <div class="featured-card">
+              <div class="featured-image">
+                <img src="./Assets/All1111111.jpeg" alt="Jujutsu Kaisen" />
+                <div class="featured-overlay">
+                  <div class="play-button">
+                    <i class="ri-play-fill"></i>
+                  </div>
+                </div>
+              </div>
+              <div class="featured-content">
+                <div class="anime-meta">
+                  <span class="anime-genre">Supernatural</span>
+                  <span class="anime-year">2020</span>
+                  <span class="anime-rating">
+                    <i class="ri-star-fill"></i>
+                    <span>9.2</span>
+                  </span>
+                </div>
+                <h3 class="anime-title">Jujutsu Kaisen</h3>
+                <p class="anime-synopsis">
+                  In a world where cursed spirits feed on unsuspecting humans,
+                  fragments of the legendary and feared demon Ryomen Sukuna were
+                  lost and scattered about. Should any demon consume Sukuna's
+                  body parts, the power they gain could destroy the world as we
+                  know it.
+                </p>
+                <div class="anime-details">
+                  <div class="detail-item">
+                    <span class="detail-label">Studio:</span>
+                    <span class="detail-value">MAPPA</span>
+                  </div>
+                  <div class="detail-item">
+                    <span class="detail-label">Episodes:</span>
+                    <span class="detail-value">24</span>
+                  </div>
+                  <div class="detail-item">
+                    <span class="detail-label">Status:</span>
+                    <span class="detail-value">Ongoing</span>
+                  </div>
+                </div>
+                <div class="anime-actions">
+                  <button
+                    class="btn btn-primary"
+                    onclick="openAnimeDetail('jujutsu-kaisen')"
+                  >
+                    <span>View Details</span>
+                    <i class="ri-arrow-right-line"></i>
+                  </button>
+                  <button class="btn btn-secondary" onclick="openVideoTrial()">
+                    <i class="ri-play-circle-line"></i>
+                    <span>Watch Trial</span>
+                  </button>
+                  <button class="btn btn-outline">
+                    <i class="ri-heart-line"></i>
+                    <span>Add to Favorites</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Anime Index Section -->
+      <section class="anime-index-section" id="anime-index">
+        <div class="container">
+          <div class="section-header">
+            <h2 class="section-title">
+              <span class="title-accent">Explore</span>
+              <span class="title-main">Anime Collection</span>
+            </h2>
+            <p class="section-subtitle">
+              Discover amazing anime series from various genres and studios
+            </p>
+          </div>
+
+          <!-- Filter Controls -->
+          <div class="filter-controls">
+            <div class="filter-group">
+              <button class="filter-btn active" data-filter="all">All</button>
+              <button class="filter-btn" data-filter="action">Action</button>
+              <button class="filter-btn" data-filter="supernatural">
+                Supernatural
+              </button>
+              <button class="filter-btn" data-filter="romance">Romance</button>
+              <button class="filter-btn" data-filter="slice-of-life">
+                Slice of Life
+              </button>
+            </div>
+            <div class="search-box">
+              <i class="ri-search-line"></i>
+              <input
+                type="text"
+                placeholder="Search anime..."
+                id="animeSearch"
+              />
+            </div>
+          </div>
+
+          <!-- Anime Grid -->
+          <div class="anime-grid" id="animeGrid">
+            <!-- Anime Card 1 -->
+            <div class="anime-card" data-category="supernatural action">
+              <div class="anime-card-image">
+                <img src="./Assets/All1111111.jpeg" alt="Jujutsu Kaisen" />
+                <div class="anime-card-overlay">
+                  <div class="anime-card-info">
+                    <h3>Jujutsu Kaisen</h3>
+                    <p>Supernatural • Action</p>
+                    <div class="anime-rating">
+                      <i class="ri-star-fill"></i>
+                      <span>9.2</span>
+                    </div>
+                  </div>
+                  <div class="anime-card-actions">
+                    <button
+                      class="card-btn"
+                      onclick="openAnimeDetail('jujutsu-kaisen')"
+                      title="View Details"
+                    >
+                      <i class="ri-eye-line"></i>
+                    </button>
+                    <button
+                      class="card-btn"
+                      onclick="openVideoTrial('Jujutsu Kaisen')"
+                      title="Watch Trial"
+                    >
+                      <i class="ri-play-circle-line"></i>
+                    </button>
+                    <button class="card-btn" title="Add to Favorites">
+                      <i class="ri-heart-line"></i>
+                    </button>
+                    <button class="card-btn" title="Share">
+                      <i class="ri-share-line"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="anime-card-content">
+                <h3 class="anime-card-title">Jujutsu Kaisen</h3>
+                <p class="anime-card-synopsis">
+                  A world where cursed spirits feed on unsuspecting humans...
+                </p>
+                <div class="anime-card-meta">
+                  <span class="anime-episodes">24 Episodes</span>
+                  <span class="anime-year">2020</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Anime Card 2 -->
+            <div class="anime-card" data-category="action supernatural">
+              <div class="anime-card-image">
+                <img src="./Assets/All1111111.jpeg" alt="Demon Slayer" />
+                <div class="anime-card-overlay">
+                  <div class="anime-card-info">
+                    <h3>Demon Slayer</h3>
+                    <p>Action • Supernatural</p>
+                    <div class="anime-rating">
+                      <i class="ri-star-fill"></i>
+                      <span>8.9</span>
+                    </div>
+                  </div>
+                  <div class="anime-card-actions">
+                    <button
+                      class="card-btn"
+                      onclick="openAnimeDetail('demon-slayer')"
+                    >
+                      <i class="ri-eye-line"></i>
+                    </button>
+                    <button class="card-btn">
+                      <i class="ri-heart-line"></i>
+                    </button>
+                    <button class="card-btn">
+                      <i class="ri-share-line"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="anime-card-content">
+                <h3 class="anime-card-title">Demon Slayer</h3>
+                <p class="anime-card-synopsis">
+                  A young boy becomes a demon slayer to save his sister...
+                </p>
+                <div class="anime-card-meta">
+                  <span class="anime-episodes">26 Episodes</span>
+                  <span class="anime-year">2019</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Anime Card 3 -->
+            <div class="anime-card" data-category="action">
+              <div class="anime-card-image">
+                <img src="./Assets/All1111111.jpeg" alt="Attack on Titan" />
+                <div class="anime-card-overlay">
+                  <div class="anime-card-info">
+                    <h3>Attack on Titan</h3>
+                    <p>Action • Drama</p>
+                    <div class="anime-rating">
+                      <i class="ri-star-fill"></i>
+                      <span>9.5</span>
+                    </div>
+                  </div>
+                  <div class="anime-card-actions">
+                    <button
+                      class="card-btn"
+                      onclick="openAnimeDetail('attack-on-titan')"
+                    >
+                      <i class="ri-eye-line"></i>
+                    </button>
+                    <button class="card-btn">
+                      <i class="ri-heart-line"></i>
+                    </button>
+                    <button class="card-btn">
+                      <i class="ri-share-line"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="anime-card-content">
+                <h3 class="anime-card-title">Attack on Titan</h3>
+                <p class="anime-card-synopsis">
+                  Humanity fights for survival against giant humanoid Titans...
+                </p>
+                <div class="anime-card-meta">
+                  <span class="anime-episodes">75 Episodes</span>
+                  <span class="anime-year">2013</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Anime Card 4 -->
+            <div class="anime-card" data-category="romance slice-of-life">
+              <div class="anime-card-image">
+                <img src="./Assets/All1111111.jpeg" alt="Your Name" />
+                <div class="anime-card-overlay">
+                  <div class="anime-card-info">
+                    <h3>Your Name</h3>
+                    <p>Romance • Drama</p>
+                    <div class="anime-rating">
+                      <i class="ri-star-fill"></i>
+                      <span>8.4</span>
+                    </div>
+                  </div>
+                  <div class="anime-card-actions">
+                    <button
+                      class="card-btn"
+                      onclick="openAnimeDetail('your-name')"
+                    >
+                      <i class="ri-eye-line"></i>
+                    </button>
+                    <button class="card-btn">
+                      <i class="ri-heart-line"></i>
+                    </button>
+                    <button class="card-btn">
+                      <i class="ri-share-line"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="anime-card-content">
+                <h3 class="anime-card-title">Your Name</h3>
+                <p class="anime-card-synopsis">
+                  Two teenagers share a profound, magical connection...
+                </p>
+                <div class="anime-card-meta">
+                  <span class="anime-episodes">Movie</span>
+                  <span class="anime-year">2016</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Anime Card 5 -->
+            <div class="anime-card" data-category="action">
+              <div class="anime-card-image">
+                <img src="./Assets/All1111111.jpeg" alt="One Piece" />
+                <div class="anime-card-overlay">
+                  <div class="anime-card-info">
+                    <h3>One Piece</h3>
+                    <p>Action • Adventure</p>
+                    <div class="anime-rating">
+                      <i class="ri-star-fill"></i>
+                      <span>9.1</span>
+                    </div>
+                  </div>
+                  <div class="anime-card-actions">
+                    <button
+                      class="card-btn"
+                      onclick="openAnimeDetail('one-piece')"
+                    >
+                      <i class="ri-eye-line"></i>
+                    </button>
+                    <button class="card-btn">
+                      <i class="ri-heart-line"></i>
+                    </button>
+                    <button class="card-btn">
+                      <i class="ri-share-line"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="anime-card-content">
+                <h3 class="anime-card-title">One Piece</h3>
+                <p class="anime-card-synopsis">
+                  A young pirate searches for the ultimate treasure...
+                </p>
+                <div class="anime-card-meta">
+                  <span class="anime-episodes">1000+ Episodes</span>
+                  <span class="anime-year">1999</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Anime Card 6 -->
+            <div class="anime-card" data-category="slice-of-life">
+              <div class="anime-card-image">
+                <img src="./Assets/All1111111.jpeg" alt="Spirited Away" />
+                <div class="anime-card-overlay">
+                  <div class="anime-card-info">
+                    <h3>Spirited Away</h3>
+                    <p>Fantasy • Family</p>
+                    <div class="anime-rating">
+                      <i class="ri-star-fill"></i>
+                      <span>9.3</span>
+                    </div>
+                  </div>
+                  <div class="anime-card-actions">
+                    <button
+                      class="card-btn"
+                      onclick="openAnimeDetail('spirited-away')"
+                    >
+                      <i class="ri-eye-line"></i>
+                    </button>
+                    <button class="card-btn">
+                      <i class="ri-heart-line"></i>
+                    </button>
+                    <button class="card-btn">
+                      <i class="ri-share-line"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="anime-card-content">
+                <h3 class="anime-card-title">Spirited Away</h3>
+                <p class="anime-card-synopsis">
+                  A girl enters a world ruled by gods and witches...
+                </p>
+                <div class="anime-card-meta">
+                  <span class="anime-episodes">Movie</span>
+                  <span class="anime-year">2001</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Load More Button -->
+          <div class="load-more-container">
+            <button class="btn btn-outline load-more-btn">
+              <span>Load More Anime</span>
+              <i class="ri-arrow-down-line"></i>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Gallery Section -->
+      <section class="gallery-section" id="gallery">
+        <div class="container">
+          <div class="section-header">
+            <h2 class="section-title">
+              <span class="title-accent">Visual</span>
+              <span class="title-main">Gallery</span>
+            </h2>
+            <p class="section-subtitle">
+              Stunning artwork, wallpapers, and fan creations
+            </p>
+          </div>
+
+          <!-- Gallery Tabs -->
+          <div class="gallery-tabs">
+            <button class="gallery-tab active" data-tab="wallpapers">
+              <i class="ri-image-line"></i>
+              <span>Wallpapers</span>
+            </button>
+            <button class="gallery-tab" data-tab="artwork">
+              <i class="ri-palette-line"></i>
+              <span>Artwork</span>
+            </button>
+            <button class="gallery-tab" data-tab="screenshots">
+              <i class="ri-camera-line"></i>
+              <span>Screenshots</span>
+            </button>
+            <button class="gallery-tab" data-tab="fanart">
+              <i class="ri-heart-3-line"></i>
+              <span>Fan Art</span>
+            </button>
+          </div>
+
+          <!-- Gallery Grid -->
+          <div class="gallery-grid" id="galleryGrid">
+            <!-- Wallpapers Tab Content -->
+            <div class="gallery-content active" data-content="wallpapers">
+              <div class="gallery-masonry">
+                <div class="gallery-item" data-category="wallpaper">
+                  <img
+                    src="./Assets/All1111111.jpeg"
+                    alt="Jujutsu Kaisen Wallpaper 1"
+                  />
+                  <div class="gallery-overlay">
+                    <div class="gallery-info">
+                      <h4>Jujutsu Kaisen</h4>
+                      <p>4K Wallpaper</p>
+                    </div>
+                    <div class="gallery-actions">
+                      <button
+                        class="gallery-btn"
+                        onclick="openImageModal(this)"
+                      >
+                        <i class="ri-eye-line"></i>
+                      </button>
+                      <button class="gallery-btn" onclick="downloadImage(this)">
+                        <i class="ri-download-line"></i>
+                      </button>
+                      <button class="gallery-btn">
+                        <i class="ri-heart-line"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="gallery-item" data-category="wallpaper">
+                  <img
+                    src="./Assets/All1111111.jpeg"
+                    alt="Demon Slayer Wallpaper"
+                  />
+                  <div class="gallery-overlay">
+                    <div class="gallery-info">
+                      <h4>Demon Slayer</h4>
+                      <p>4K Wallpaper</p>
+                    </div>
+                    <div class="gallery-actions">
+                      <button
+                        class="gallery-btn"
+                        onclick="openImageModal(this)"
+                      >
+                        <i class="ri-eye-line"></i>
+                      </button>
+                      <button class="gallery-btn" onclick="downloadImage(this)">
+                        <i class="ri-download-line"></i>
+                      </button>
+                      <button class="gallery-btn">
+                        <i class="ri-heart-line"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="gallery-item" data-category="wallpaper">
+                  <img
+                    src="./Assets/All1111111.jpeg"
+                    alt="Attack on Titan Wallpaper"
+                  />
+                  <div class="gallery-overlay">
+                    <div class="gallery-info">
+                      <h4>Attack on Titan</h4>
+                      <p>4K Wallpaper</p>
+                    </div>
+                    <div class="gallery-actions">
+                      <button
+                        class="gallery-btn"
+                        onclick="openImageModal(this)"
+                      >
+                        <i class="ri-eye-line"></i>
+                      </button>
+                      <button class="gallery-btn" onclick="downloadImage(this)">
+                        <i class="ri-download-line"></i>
+                      </button>
+                      <button class="gallery-btn">
+                        <i class="ri-heart-line"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="gallery-item" data-category="wallpaper">
+                  <img
+                    src="./Assets/All1111111.jpeg"
+                    alt="Your Name Wallpaper"
+                  />
+                  <div class="gallery-overlay">
+                    <div class="gallery-info">
+                      <h4>Your Name</h4>
+                      <p>4K Wallpaper</p>
+                    </div>
+                    <div class="gallery-actions">
+                      <button
+                        class="gallery-btn"
+                        onclick="openImageModal(this)"
+                      >
+                        <i class="ri-eye-line"></i>
+                      </button>
+                      <button class="gallery-btn" onclick="downloadImage(this)">
+                        <i class="ri-download-line"></i>
+                      </button>
+                      <button class="gallery-btn">
+                        <i class="ri-heart-line"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Other tab contents would be similar -->
+            <div class="gallery-content" data-content="artwork">
+              <div class="gallery-masonry">
+                <div class="gallery-item" data-category="artwork">
+                  <img
+                    src="./Assets/All1111111.jpeg"
+                    alt="Official Artwork 1"
+                  />
+                  <div class="gallery-overlay">
+                    <div class="gallery-info">
+                      <h4>Official Artwork</h4>
+                      <p>Character Design</p>
+                    </div>
+                    <div class="gallery-actions">
+                      <button
+                        class="gallery-btn"
+                        onclick="openImageModal(this)"
+                      >
+                        <i class="ri-eye-line"></i>
+                      </button>
+                      <button class="gallery-btn" onclick="downloadImage(this)">
+                        <i class="ri-download-line"></i>
+                      </button>
+                      <button class="gallery-btn">
+                        <i class="ri-heart-line"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="gallery-content" data-content="screenshots">
+              <div class="gallery-masonry">
+                <div class="gallery-item" data-category="screenshot">
+                  <img
+                    src="./Assets/All1111111.jpeg"
+                    alt="Episode Screenshot 1"
+                  />
+                  <div class="gallery-overlay">
+                    <div class="gallery-info">
+                      <h4>Episode 1</h4>
+                      <p>Key Scene</p>
+                    </div>
+                    <div class="gallery-actions">
+                      <button
+                        class="gallery-btn"
+                        onclick="openImageModal(this)"
+                      >
+                        <i class="ri-eye-line"></i>
+                      </button>
+                      <button class="gallery-btn" onclick="downloadImage(this)">
+                        <i class="ri-download-line"></i>
+                      </button>
+                      <button class="gallery-btn">
+                        <i class="ri-heart-line"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="gallery-content" data-content="fanart">
+              <div class="gallery-masonry">
+                <div class="gallery-item" data-category="fanart">
+                  <img src="./Assets/All1111111.jpeg" alt="Fan Art 1" />
+                  <div class="gallery-overlay">
+                    <div class="gallery-info">
+                      <h4>Fan Creation</h4>
+                      <p>Community Art</p>
+                    </div>
+                    <div class="gallery-actions">
+                      <button
+                        class="gallery-btn"
+                        onclick="openImageModal(this)"
+                      >
+                        <i class="ri-eye-line"></i>
+                      </button>
+                      <button class="gallery-btn" onclick="downloadImage(this)">
+                        <i class="ri-download-line"></i>
+                      </button>
+                      <button class="gallery-btn">
+                        <i class="ri-heart-line"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- About Section -->
+      <section class="about-section" id="about">
+        <div class="container">
+          <div class="section-header">
+            <h2 class="section-title">
+              <span class="title-accent">About</span>
+              <span class="title-main">AnimeVerse</span>
+            </h2>
+            <p class="section-subtitle">Your gateway to the world of anime</p>
+          </div>
+
+          <div class="about-content">
+            <div class="about-text">
+              <h3>Welcome to the Ultimate Anime Experience</h3>
+              <p>
+                AnimeVerse is more than just a website—it's a digital artbook
+                that brings the captivating worlds of anime to life through
+                interactive storytelling, stunning visuals, and comprehensive
+                character lore. Our mission is to create an immersive experience
+                that celebrates the art, culture, and community of anime.
+              </p>
+              <p>
+                From detailed character biographies to stunning wallpapers, from
+                episode guides to fan art galleries, we provide everything you
+                need to dive deep into your favorite anime series. Join our
+                community of anime enthusiasts and discover new worlds,
+                characters, and stories.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
+
     <script src="scripts.js"></script>
   </body>
 </html>
