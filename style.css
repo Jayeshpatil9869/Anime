@@ -1,0 +1,83 @@
+@font-face {
+    font-family: Hangyaku;
+    src: url(./Assets/Hangyaku-G3rpg.ttf);
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,body{
+    height: 100%;
+    width: 100%;
+}
+
+main{
+    height: 100%;
+    width: 100%;
+    position: relative;
+    font-family: Hangyaku;
+}
+
+.videoLayer{
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+.bllayer{
+    height: 100%;
+    width: 100%;
+    /* background-color: rgba(0, 0, 0, 0.814); */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity:1;
+}
+.videoLayer video{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.page{
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+nav{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: white;
+    height: 15vh;
+}
+
+.logo{
+    padding: 3vh 8vh;
+}
+.logo img{
+    height: 9vw;
+}
+
+.rnav{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6vh;
+}
+
+.rnav h3{
+    font-size: 3.2vh;
+    font-weight: 400;
+    letter-spacing: 0.4vh;
+    cursor: pointer;
+}
+
