@@ -1,5 +1,7 @@
 // AnimeVerse - Interactive Features
 document.addEventListener("DOMContentLoaded", function () {
+  console.log("DOM loaded, initializing features...");
+
   // Initialize all features
   initializeLoading();
   initializeNavigation();
@@ -10,6 +12,8 @@ document.addEventListener("DOMContentLoaded", function () {
   initializeAnimeFilters();
   initializeGallery();
   initializeVideoPlayer();
+
+  console.log("All features initialized");
 });
 
 // Loading Screen
@@ -99,131 +103,120 @@ function initializeMusicToggle() {
   const musicToggle = document.getElementById("musicToggle");
   const musicIcon = document.getElementById("musicIcon");
   const backgroundMusic = document.getElementById("backgroundMusic");
-  let isPlaying = false;
-  let isLoaded = false;
 
-  // Ensure audio starts muted
+  if (!musicToggle || !musicIcon || !backgroundMusic) {
+    console.error("Music toggle elements not found");
+    return;
+  }
+
+  let isPlaying = false;
+
+  // Ensure audio starts muted and set initial state
   backgroundMusic.muted = true;
   backgroundMusic.volume = 0.3;
+  musicIcon.className = "ri-volume-mute-line";
+  musicToggle.classList.remove("playing");
 
-  // Check if audio can be loaded
-  backgroundMusic.addEventListener("canplaythrough", () => {
-    isLoaded = true;
-    console.log("Background music loaded successfully");
-  });
+  console.log("Music toggle initialized - muted by default");
 
-  backgroundMusic.addEventListener("error", (e) => {
-    console.error("Background music failed to load:", e);
-    showMusicError();
+  // Test audio support
+  if (!testAudioSupport()) {
+    console.warn("Limited audio support detected");
+    musicToggle.title = "Audio may not be supported in this browser";
+  }
+
+  // Simple click handler
+  musicToggle.addEventListener("click", () => {
+    console.log(
+      "Music toggle clicked, current state:",
+      isPlaying ? "playing" : "stopped"
+    );
+
+    if (isPlaying) {
+      // Stop music
+      backgroundMusic.pause();
+      backgroundMusic.muted = true;
+      backgroundMusic.currentTime = 0; // Reset to beginning
+      isPlaying = false;
+      musicIcon.className = "ri-volume-mute-line";
+      musicToggle.classList.remove("playing");
+      console.log("Music stopped and muted");
+    } else {
+      // Start music
+      backgroundMusic.muted = false;
+      backgroundMusic
+        .play()
+        .then(() => {
+          isPlaying = true;
+          musicIcon.className = "ri-volume-up-line";
+          musicToggle.classList.add("playing");
+          console.log("Music started successfully");
+        })
+        .catch((error) => {
+          console.log("Music play failed:", error);
+          backgroundMusic.muted = true;
+          musicIcon.className = "ri-volume-mute-line";
+          musicToggle.classList.remove("playing");
+
+          // Show user-friendly message
+          musicToggle.title =
+            "Click to enable music (browser blocked autoplay)";
+          setTimeout(() => {
+            musicToggle.title = "Toggle background music";
+          }, 3000);
+        });
+    }
   });
 
   // Handle audio events
-  backgroundMusic.addEventListener("play", () => {
-    isPlaying = true;
-    musicIcon.className = "ri-volume-up-line";
-    musicToggle.classList.add("playing");
-  });
-
-  backgroundMusic.addEventListener("pause", () => {
-    isPlaying = false;
-    musicIcon.className = "ri-volume-mute-line";
-    musicToggle.classList.remove("playing");
-  });
-
   backgroundMusic.addEventListener("ended", () => {
     isPlaying = false;
     musicIcon.className = "ri-volume-mute-line";
     musicToggle.classList.remove("playing");
+    backgroundMusic.muted = true;
+    console.log("Music ended");
   });
 
-  // Click handler
-  musicToggle.addEventListener("click", () => {
-    if (!isLoaded) {
-      showMusicLoadingMessage();
-      return;
-    }
-
-    if (isPlaying) {
-      backgroundMusic.pause();
-      backgroundMusic.muted = true;
-    } else {
-      // Unmute and play
-      backgroundMusic.muted = false;
-      // Note: Auto-play might be blocked by browser policies
-      backgroundMusic.play().catch((e) => {
-        console.log("Audio play failed:", e);
-        backgroundMusic.muted = true; // Re-mute if play fails
-        showAutoplayBlockedMessage();
-      });
-    }
+  backgroundMusic.addEventListener("error", (e) => {
+    console.error("Audio error:", e);
+    musicIcon.className = "ri-volume-mute-line";
+    musicToggle.classList.remove("playing");
+    musicToggle.style.borderColor = "#ff4444";
+    musicToggle.title = "Audio file not available";
   });
 
-  // Volume control with mouse wheel
+  // Volume control with mouse wheel (optional)
   musicToggle.addEventListener("wheel", (e) => {
     e.preventDefault();
 
-    // If music is muted and user scrolls up, unmute it
-    if (backgroundMusic.muted && e.deltaY < 0) {
-      backgroundMusic.muted = false;
-    }
+    if (!isPlaying) return;
 
     const currentVolume = backgroundMusic.volume;
     const volumeChange = e.deltaY > 0 ? -0.1 : 0.1;
     const newVolume = Math.max(0, Math.min(1, currentVolume + volumeChange));
     backgroundMusic.volume = newVolume;
 
-    // Mute if volume reaches 0
+    // Update icon based on volume
     if (newVolume === 0) {
-      backgroundMusic.muted = true;
+      musicIcon.className = "ri-volume-mute-line";
+    } else if (newVolume < 0.5) {
+      musicIcon.className = "ri-volume-down-line";
+    } else {
+      musicIcon.className = "ri-volume-up-line";
     }
 
-    // Update visual feedback
-    updateVolumeIndicator(newVolume);
+    console.log("Volume changed to:", Math.round(newVolume * 100) + "%");
   });
 }
 
-function showMusicError() {
-  const musicToggle = document.getElementById("musicToggle");
-  musicToggle.style.borderColor = "#ff0000";
-  musicToggle.title = "Background music failed to load";
+// Helper function to test audio functionality
+function testAudioSupport() {
+  const audio = document.createElement("audio");
+  const canPlayMP4 = audio.canPlayType("audio/mp4");
+  const canPlayMP3 = audio.canPlayType("audio/mpeg");
 
-  setTimeout(() => {
-    musicToggle.style.borderColor = "";
-    musicToggle.title = "Background music (unavailable)";
-  }, 3000);
-}
-
-function showMusicLoadingMessage() {
-  const musicToggle = document.getElementById("musicToggle");
-  const originalTitle = musicToggle.title;
-  musicToggle.title = "Loading background music...";
-
-  setTimeout(() => {
-    musicToggle.title = originalTitle;
-  }, 2000);
-}
-
-function showAutoplayBlockedMessage() {
-  const musicToggle = document.getElementById("musicToggle");
-  const originalTitle = musicToggle.title;
-  musicToggle.title = "Click again to play music (autoplay blocked)";
-
-  setTimeout(() => {
-    musicToggle.title = originalTitle;
-  }, 3000);
-}
-
-function updateVolumeIndicator(volume) {
-  const musicIcon = document.getElementById("musicIcon");
-  const backgroundMusic = document.getElementById("backgroundMusic");
-
-  if (backgroundMusic.muted || volume === 0) {
-    musicIcon.className = "ri-volume-mute-line";
-  } else if (volume < 0.5) {
-    musicIcon.className = "ri-volume-down-line";
-  } else {
-    musicIcon.className = "ri-volume-up-line";
-  }
+  console.log("Audio support - MP4:", canPlayMP4, "MP3:", canPlayMP3);
+  return canPlayMP4 !== "" || canPlayMP3 !== "";
 }
 
 // Animations
