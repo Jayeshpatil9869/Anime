@@ -9,7 +9,12 @@ document.addEventListener("DOMContentLoaded", function () {
   initializeMusicToggle();
   initializeAnimations();
   initializeCounters();
-  initializeAnimeFilters();
+  // initializeAnimeFilters(); // Handled by initializeAnimeGrid after data load
+
+  if (typeof initializeAnimeGrid === 'function') {
+    initializeAnimeGrid();
+  }
+
   initializeGallery();
   initializeVideoPlayer();
 
@@ -290,12 +295,12 @@ function scrollToSection(sectionId) {
   }
 }
 
-function openAnimeDetail(animeId) {
-  // This would typically navigate to a detail page
-  // For now, we'll show an alert
-  alert(`Opening details for: ${animeId}`);
-  // In a real application, you might do:
-  // window.location.href = `anime-detail.html?id=${animeId}`;
+function openAnimeDetail(animeTitle) {
+  // Redirect to hianimes.cz search
+  if (animeTitle) {
+    const encodedTitle = encodeURIComponent(animeTitle);
+    window.open(`https://hianimes.cz/search?keyword=${encodedTitle}`, '_blank');
+  }
 }
 
 // Parallax Effect for Video Background
